@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="col-md-6 offset-3">
+        <form method="post" th:action="@{save}">
+            <div><label>ID</label> <input class="form-control" type="text" name="id" th:value="${student.id}"> <span
+                    th:errors="${student.id}"></span></div>
+            <div><label>Name</label> <input class="form-control" type="text" name="name" th:value="${student.name}">
+                <span th:errors="${student.name}"></span></div>
+            <div><label>Date of Birth</label> <input class="form-control" type="date" name="dob"
+                                                     th:value="${student.dob}"> <span th:errors="${student.dob}"></span>
+            </div>
+            <div><label>Passed</label> <input type="checkbox" name="passed" th:checked="${student.passed}"> <span
+                    th:errors="${student.passed}"></span></div>
+            <div><label>GPA</label> <input class="form-control" type="text" name="gpa" th:value="${student.gpa}"> <span
+                    th:errors="${student.gpa}"></span></div>
+            <button type="submit" class="btn-primary" th:href="@{/index}">Save</button>
+        </form>
+    </div>
+</section>
+</body>
+</html>

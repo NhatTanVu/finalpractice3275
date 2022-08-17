@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>Title</title>
+
+    <style>
+        .pre-scrollable {
+            height: 450px;
+            overflow-y: scroll;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+    <script th:inline="javascript">
+        var u = [[${session.a}]];
+        if (u == 1) {
+            alert('One record added');
+        }
+    </script>
+    <script th:inline="javascript">
+        var u = [[${session.e}]];
+        if (u == 2) {
+            alert('One record edited');
+        }
+    </script>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h1>List of Students</h1>
+    <div class="container mt-2 pre-scrollable">
+        <div class="card-header">Student List</div>
+        <div class="card-body">
+            <form method="get" th:action="@{index}">
+                <label>Key Word</label>
+                <input type="text" name="keyword">
+                <button type="submit" class="btn-primary">Search</button>
+                <button class="btn-primary" onclick="window.location.href = '/index'; return false;">See All</button>
+            </form>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Date of birth</th>
+                    <th>Pass</th>
+                    <th>GPA</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p:${listStudents}">
+                    <td th:text="${p.getId()}"></td>
+                    <td th:text="${p.getName()}"></td>
+                    <td th:text="${p.getDob()}"></td>
+                    <td th:text="${p.passed}"></td>
+                    <td th:text="${p.getGpa()}"></td>
+                    <td>
+                        <a class="btn btn-danger"
+                           onclick="return confirm('Are you sure you want to delete the record ?')"
+                           th:href="@{delete(id=${p.id})}">Delete</a>
+                        <a class="btn btn-success" th:href="@{editStudents(id=${p.id})}">Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
